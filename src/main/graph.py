@@ -15,12 +15,15 @@ def printGraph(G, path):
     plt.show()
     print("\n")
 
+
 def addNode(G, node):
     G.add_node(node)
+
 
 def addNodes(G, nodes):
     for node in nodes:
         G.add_node(node)
+
 
 def addEdges(G, edges, state):
     if (state["isValued"]):
