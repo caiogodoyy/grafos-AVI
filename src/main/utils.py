@@ -7,6 +7,6 @@ def parser(input):
         '[^A-Za-záéíóúÁÉÍÓÚâêîôÂÊÎÔàèìòùÀÈÌÒÙãõÃÕçÇ\d\s.,]+', '', input)
     return input
 
-def floatConversor(nodes):
+def convertEdgeValuesToFloat(nodes):
     for i in range(2, len(nodes), 3):
         nodes[i] = float(nodes[i])

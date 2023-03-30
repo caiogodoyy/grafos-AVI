@@ -15,14 +15,17 @@ def printGraph(G, path):
     plt.show()
     print("\n")
 
-def buildGraph(G, nodes, state):
+def addNode(G, node):
+    G.add_node(node)
+
+def addNodes(G, nodes):
+    for node in nodes:
+        G.add_node(node)
+
+def addEdges(G, edges, state):
     if (state["isValued"]):
-        for i in range(0, len(nodes)-1, 3):
-            G.add_node(nodes[i])
-            G.add_node(nodes[i+1])
-            G.add_edge(nodes[i], nodes[i+1], weight=nodes[i+2])
+        for i in range(0, len(edges)-1, 3):
+            G.add_edge(edges[i], edges[i+1], weight=edges[i+2])
     else:
-        for i in range(0, len(nodes)-1, 2):
-            G.add_node(nodes[i])
-            G.add_node(nodes[i+1])
-            G.add_edge(nodes[i], nodes[i+1])
+        for i in range(0, len(edges)-1, 2):
+            G.add_edge(edges[i], edges[i+1], weight=1)
