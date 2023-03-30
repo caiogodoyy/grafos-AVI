@@ -54,7 +54,7 @@ graph.buildGraph(G, nodes, state)
 print("Grafo construído com sucesso! :)")
 
 sessionId = str(uuid.uuid4())
-path = f"D:\Workspace\grafos-AVI\images\{sessionId}"
+path = f"images\{sessionId}"
 graph.printGraph(G, path)
 
 print("O que você quer fazer com seu grafo?")
@@ -97,5 +97,5 @@ while (op):
 
     if (op == 5 and state["isValued"] and not state["isDirected"]):
         T = nx.minimum_spanning_tree(G)
-        graph.printGraph(T)
+        graph.printGraph(T, path)
     print("\n")
