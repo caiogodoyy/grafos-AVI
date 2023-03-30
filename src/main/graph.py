@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 
-def printGraph(G):
+def printGraph(G, path):
     print("\n")
     pos = nx.spring_layout(G)
     nx.draw_networkx_nodes(G, pos, node_color="lightblue")
@@ -11,9 +11,9 @@ def printGraph(G):
     edge_labels = nx.get_edge_attributes(G, "weight")
     nx.draw_networkx_edge_labels(G, pos, edge_labels)
     plt.axis("off")
+    plt.savefig(path)
     plt.show()
     print("\n")
-
 
 def buildGraph(G, nodes, state):
     if (state["isValued"]):

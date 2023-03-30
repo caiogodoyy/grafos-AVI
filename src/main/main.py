@@ -1,3 +1,4 @@
+import uuid
 import networkx as nx
 
 import graph
@@ -51,7 +52,10 @@ else:
 
 graph.buildGraph(G, nodes, state)
 print("Grafo construído com sucesso! :)")
-graph.printGraph(G)
+
+sessionId = str(uuid.uuid4())
+path = f"D:\Workspace\grafos-AVI\images\{sessionId}"
+graph.printGraph(G, path)
 
 print("O que você quer fazer com seu grafo?")
 op = 1
