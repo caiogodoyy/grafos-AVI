@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 
-def printGraph(G, path, T):
+def printGraph(G, path, path_edges):
     print("\n")
     pos = nx.spring_layout(G)
     nx.draw_networkx_nodes(G, pos, node_color="lightblue",)
@@ -9,8 +9,7 @@ def printGraph(G, path, T):
     nx.draw_networkx_labels(G, pos)
     edge_labels = nx.get_edge_attributes(G, "weight")
     nx.draw_networkx_edge_labels(G, pos, edge_labels)
-    if (T):
-      path_edges = list(zip(T,T[1:]))
+    if (path_edges):
       nx.draw_networkx_edges(G, pos, edgelist = path_edges, edge_color="green", width=2)
     plt.axis("off")
     plt.savefig(path)

@@ -94,8 +94,10 @@ while (op):
             node = utils.parser(utils.getInput(
                 "str", "De qual vértice você quer ver as ligações?\n>>"))
             if (state["isDirected"]):
-                print(G.in_edges(node))
-                print(G.out_edges(node))
+                if (G.in_edges(node)):
+                    print(G.in_edges(node))
+                if (G.out_edges(node)):
+                    print(G.out_edges(node))
             else:
                 print(G.edges(node))
         case 3:
@@ -119,12 +121,14 @@ while (op):
             if nx.has_path(G,Fnode1,Fnode2):
                 if state["isValued"]:
                     T = nx.shortest_path(G, source = Fnode1, target = Fnode2, weight = "weight")
-                    Spath = nx.shortest_path_length(G,source = Fnode1, target = Fnode2)
+                    path_edges = list(zip(T,T[1:]))
+                    Spath = nx.path_weight(G, T, weight = "weight")
                 else:
                     T = nx.shortest_path(G, source = Fnode1, target = Fnode2)
                     Spath = nx.shortest_path_length(G,source = Fnode1, target = Fnode2)
-                graph.printGraph(G, path, T)
-                print(f"Valor do menor caminho: {Spath}")
+                graph.printGraph(G, path, path_edges)
+                print(f"Menor caminho possivel: {Spath}")
+                
             else:
                 print(f"Não possui um caminho entre {Fnode1} e {Fnode2}")
         case _:
