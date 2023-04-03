@@ -1,20 +1,22 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 
-
-def printGraph(G, path):
+def printGraph(G, path, T):
     print("\n")
     pos = nx.spring_layout(G)
-    nx.draw_networkx_nodes(G, pos, node_color="lightblue")
+    nx.draw_networkx_nodes(G, pos, node_color="lightblue",)
     nx.draw_networkx_edges(G, pos, edge_color="grey")
     nx.draw_networkx_labels(G, pos)
     edge_labels = nx.get_edge_attributes(G, "weight")
     nx.draw_networkx_edge_labels(G, pos, edge_labels)
+    if (T):
+      path_edges = list(zip(T,T[1:]))
+      nx.draw_networkx_edges(G, pos, edgelist = path_edges, edge_color="green", width=2)
     plt.axis("off")
     plt.savefig(path)
+                  
     plt.show()
     print("\n")
-
 
 def addNode(G, node):
     G.add_node(node)
@@ -23,7 +25,6 @@ def addNode(G, node):
 def addNodes(G, nodes):
     for node in nodes:
         G.add_node(node)
-
 
 def addEdges(G, edges, state):
     if (state["isValued"]):
