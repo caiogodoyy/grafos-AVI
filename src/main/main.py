@@ -74,7 +74,7 @@ if (edges):
 print("Grafo construído com sucesso! :)")
 
 sessionId = str(uuid.uuid4())
-path = f"Grafos\images\{sessionId}"
+path = f"images\{sessionId}"
 graph.printGraph(G, path, 0)
 
 print("O que você quer fazer com seu grafo?")
