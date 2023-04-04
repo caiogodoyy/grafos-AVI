@@ -74,18 +74,14 @@ if (edges):
 print("Grafo construído com sucesso! :)")
 
 sessionId = str(uuid.uuid4())
-path = f"images\{sessionId}"
-graph.printGraph(G, path)
+path = f"Grafos\images\{sessionId}"
+graph.printGraph(G, path, 0)
 
 print("O que você quer fazer com seu grafo?")
 op = 1
 while (op):
-    if (not state["isDirected"]):
-        op = utils.getInput(
-            "int", "[0] Sair\n[1] Ver ordem e tamanho\n[2] Ver ligações de um vértice\n[3] Ver grau de um vértice\n[4] Checar adjacência entre vertices\n[5] Encontrar caminho mais curto\n>>")
-    else:
-        op = utils.getInput(
-            "int", "[0] Sair\n[1] Ver ordem e tamanho\n[2] Ver ligações de um vértice\n[3] Ver grau de um vértice\n[4] Checar adjacência entre vertices\n>>")
+    op = utils.getInput(
+        "int", "[0] Sair\n[1] Ver ordem e tamanho\n[2] Ver ligações de um vértice\n[3] Ver grau de um vértice\n[4] Checar adjacência entre vertices\n[5] Encontrar caminho mais curto\n>>\n>>")
 
     print("\n")
     match op:
@@ -103,25 +99,38 @@ while (op):
                 if (G.out_edges(node)):
                     print(G.out_edges(node))
             else:
-                if (G.out_edges(node)):
-                    print(G.out_edges(node))
+                print(G.edges(node))
         case 3:
             node = utils.parser(utils.getInput(
                 "str", "De qual vértice você quer ver o grau?\n>>"))
             print(f"O grau do vértice {node} é: {G.degree[node]} ")
-        case 4:
+        case 4: 
             node1 = utils.parser(utils.getInput(
                 "str", "Digite o nome do primeiro vértice: "))
             node2 = utils.parser(utils.getInput(
                 "str", "Digite o nome do segundo vértice: "))
             if (G.has_edge(node1, node2)):
-                print("Sim! Existe a ligação entre esses dois vértices")
+                print("Sim! Esses dois vértices são adjacentes")
             else:
-                print("Não... Não existe a ligação entre esses dois vértices")
+                print("Não... Esses dois vértices não são adjacentes")
         case 5:
-            if (not state["isDirected"]):
-                T = nx.minimum_spanning_tree(G)
-                graph.printGraph(T, path)
+            Fnode1 = utils.parser(utils.getInput(
+                "str", "Digite o nome do primeiro vértice: "))
+            Fnode2 = utils.parser(utils.getInput(
+                "str", "Digite o nome do segundo vértice: "))
+            if nx.has_path(G,Fnode1,Fnode2):
+                if state["isValued"]:
+                    T = nx.shortest_path(G, source = Fnode1, target = Fnode2, weight = "weight")
+                    path_edges = list(zip(T,T[1:]))
+                    Spath = nx.path_weight(G, T, weight = "weight")
+                else:
+                    T = nx.shortest_path(G, source = Fnode1, target = Fnode2)
+                    Spath = nx.shortest_path_length(G,source = Fnode1, target = Fnode2)
+                graph.printGraph(G, path, path_edges)
+                print(f"Menor caminho possivel: {Spath}")
+                
+            else:
+                print(f"Não possui um caminho entre {Fnode1} e {Fnode2}")
         case _:
             print(NON_OP)
     print("\n")
