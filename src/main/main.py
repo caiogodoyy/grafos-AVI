@@ -55,16 +55,16 @@ else:
                 graph.addNode(G, node)
             case 2:
                 if (state["isValued"]):
-                    nodes.append(utils.parser(utils.getInput(
+                    edges.append(utils.parser(utils.getInput(
                         "str", "Digite o nome do primeiro vértice: ")))
-                    nodes.append(utils.parser(utils.getInput(
+                    edges.append(utils.parser(utils.getInput(
                         "str", "Digite o nome do segundo vértice: ")))
-                    nodes.append(utils.getInput(
+                    edges.append(utils.getInput(
                         "float", "Agora, digite o valor da aresta: "))
                 else:
-                    nodes.append(utils.parser(utils.getInput(
+                    edges.append(utils.parser(utils.getInput(
                         "str", "Digite o nome do primeiro vértice: ")))
-                    nodes.append(utils.parser(utils.getInput(
+                    edges.append(utils.parser(utils.getInput(
                         "str", "Digite o nome do segundo vértice: ")))
             case _:
                 print(NON_OP)
@@ -74,7 +74,7 @@ if (edges):
 print("Grafo construído com sucesso! :)")
 
 sessionId = str(uuid.uuid4())
-path = f"Grafos\images\{sessionId}"
+path = f"images\{sessionId}"
 graph.printGraph(G, path, 0)
 
 print("O que você quer fazer com seu grafo?")
@@ -95,15 +95,19 @@ while (op):
                 "str", "De qual vértice você quer ver as ligações?\n>>"))
             if (state["isDirected"]):
                 if (G.in_edges(node)):
-                    print(G.in_edges(node))
+                    print(f"Ligações de entrada: {G.in_edges(node)}")
                 if (G.out_edges(node)):
-                    print(G.out_edges(node))
+                    print(f"Ligações de Saída: {G.out_edges(node)}")
             else:
                 print(G.edges(node))
         case 3:
             node = utils.parser(utils.getInput(
                 "str", "De qual vértice você quer ver o grau?\n>>"))
-            print(f"O grau do vértice {node} é: {G.degree[node]} ")
+            if (state["isDirected"]):
+                print(f"O grau de entrada é: {G.in_degree[node]}")
+                print(f"O grau de saída é: {G.out_degree[node]}")
+            else:
+                print(f"O grau do vértice {node} é: {G.degree[node]} ")
         case 4: 
             node1 = utils.parser(utils.getInput(
                 "str", "Digite o nome do primeiro vértice: "))
@@ -125,6 +129,7 @@ while (op):
                     Spath = nx.path_weight(G, T, weight = "weight")
                 else:
                     T = nx.shortest_path(G, source = Fnode1, target = Fnode2)
+                    path_edges = list(zip(T,T[1:]))
                     Spath = nx.shortest_path_length(G,source = Fnode1, target = Fnode2)
                 graph.printGraph(G, path, path_edges)
                 print(f"Menor caminho possivel: {Spath}")
