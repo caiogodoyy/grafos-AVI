@@ -55,16 +55,16 @@ else:
                 graph.addNode(G, node)
             case 2:
                 if (state["isValued"]):
-                    nodes.append(utils.parser(utils.getInput(
+                    edges.append(utils.parser(utils.getInput(
                         "str", "Digite o nome do primeiro vértice: ")))
-                    nodes.append(utils.parser(utils.getInput(
+                    edges.append(utils.parser(utils.getInput(
                         "str", "Digite o nome do segundo vértice: ")))
-                    nodes.append(utils.getInput(
+                    edges.append(utils.getInput(
                         "float", "Agora, digite o valor da aresta: "))
                 else:
-                    nodes.append(utils.parser(utils.getInput(
+                    edges.append(utils.parser(utils.getInput(
                         "str", "Digite o nome do primeiro vértice: ")))
-                    nodes.append(utils.parser(utils.getInput(
+                    edges.append(utils.parser(utils.getInput(
                         "str", "Digite o nome do segundo vértice: ")))
             case _:
                 print(NON_OP)
