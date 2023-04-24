@@ -55,16 +55,16 @@ else:
                 graph.addNode(G, node)
             case 2:
                 if (state["isValued"]):
-                    nodes.append(utils.parser(utils.getInput(
+                    edges.append(utils.parser(utils.getInput(
                         "str", "Digite o nome do primeiro vértice: ")))
-                    nodes.append(utils.parser(utils.getInput(
+                    edges.append(utils.parser(utils.getInput(
                         "str", "Digite o nome do segundo vértice: ")))
-                    nodes.append(utils.getInput(
+                    edges.append(utils.getInput(
                         "float", "Agora, digite o valor da aresta: "))
                 else:
-                    nodes.append(utils.parser(utils.getInput(
+                    edges.append(utils.parser(utils.getInput(
                         "str", "Digite o nome do primeiro vértice: ")))
-                    nodes.append(utils.parser(utils.getInput(
+                    edges.append(utils.parser(utils.getInput(
                         "str", "Digite o nome do segundo vértice: ")))
             case _:
                 print(NON_OP)
@@ -74,7 +74,7 @@ if (edges):
 print("Grafo construído com sucesso! :)")
 
 sessionId = str(uuid.uuid4())
-path = f"Grafos\images\{sessionId}"
+path = f"images\{sessionId}"
 graph.printGraph(G, path, 0)
 
 print("O que você quer fazer com seu grafo?")
