@@ -119,14 +119,14 @@ while (op):
             if (nx.has_path(G,Fnode1,Fnode2)):
                 if state["isValued"]:
                     T = nx.shortest_path(G, source = Fnode1, target = Fnode2, weight = "weight")
-                    Spath = nx.shortest_path_length(G,source = Fnode1, target = Fnode2)
+                    path_edges = list(zip(T,T[1:]))
+                    Spath = nx.path_weight(G, T, weight = "weight")
                 else:
                     T = nx.shortest_path(G, source = Fnode1, target = Fnode2)
+                    path_edges = list(zip(T,T[1:]))
                     Spath = nx.shortest_path_length(G,source = Fnode1, target = Fnode2)
-                graph.printGraph(G, path, T)
-                print(f"Valor do menor caminho: {Spath}")
-            else:
-                print(f"Não possui um caminho entre {Fnode1} e {Fnode2}")
+                graph.printGraph(G, path, path_edges)
+                print(f"Menor caminho possivel: {Spath}")
         case 6:
             try:
                 print(f"Esse é o raio do grafo: {nx.radius(G, weight = 'weight')}")
