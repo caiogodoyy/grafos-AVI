@@ -94,20 +94,26 @@ while (op):
             node = utils.parser(utils.getInput(
                 "str", "De qual vértice você quer ver as ligações?\n>>"))
             if (state["isDirected"]):
-                print(G.in_edges(node))
-                print(G.out_edges(node))
+                if (G.in_edges(node)):
+                    print(f"Ligações de entrada: {G.in_edges(node)}")
+                if (G.out_edges(node)):
+                    print(f"Ligações de Saída: {G.out_edges(node)}")
             else:
                 print(G.edges(node))
         case 3:
             node = utils.parser(utils.getInput(
                 "str", "De qual vértice você quer ver o grau?\n>>"))
-            print(f"O grau do vértice {node} é: {G.degree[node]} ")
+            if (state["isDirected"]):
+                print(f"O grau de entrada é: {G.in_degree[node]}")
+                print(f"O grau de saída é: {G.out_degree[node]}")
+            else:
+                print(f"O grau do vértice {node} é: {G.degree[node]} ")
         case 4: 
             node1 = utils.parser(utils.getInput(
                 "str", "Digite o nome do primeiro vértice: "))
             node2 = utils.parser(utils.getInput(
                 "str", "Digite o nome do segundo vértice: "))
-            if (G.has_edge(node1, node2) or G.has_edge(node2, node1)):
+            if (G.has_edge(node1, node2)):
                 print("Sim! Esses dois vértices são adjacentes")
             else:
                 print("Não... Esses dois vértices não são adjacentes")
@@ -116,17 +122,26 @@ while (op):
                 "str", "Digite o nome do primeiro vértice: "))
             Fnode2 = utils.parser(utils.getInput(
                 "str", "Digite o nome do segundo vértice: "))
-            if (nx.has_path(G,Fnode1,Fnode2)):
+            if nx.has_path(G,Fnode1,Fnode2):
                 if state["isValued"]:
                     T = nx.shortest_path(G, source = Fnode1, target = Fnode2, weight = "weight")
-                    Spath = nx.shortest_path_length(G,source = Fnode1, target = Fnode2)
+                    path_edges = list(zip(T,T[1:]))
+                    Spath = nx.path_weight(G, T, weight = "weight")
                 else:
                     T = nx.shortest_path(G, source = Fnode1, target = Fnode2)
+                    path_edges = list(zip(T,T[1:]))
                     Spath = nx.shortest_path_length(G,source = Fnode1, target = Fnode2)
-                graph.printGraph(G, path, T)
-                print(f"Valor do menor caminho: {Spath}")
+                graph.printGraph(G, path, path_edges)
+                print(f"Menor caminho possivel: {Spath}")
+          
             else:
                 print(f"Não possui um caminho entre {Fnode1} e {Fnode2}")
+        case 6:
+            try:
+                print(f"Esse é o raio do grafo: {nx.radius(G, weight = 'weight')}")
+                print(f"Esse é o diâmetro do grafo: {nx.diameter(G,  weight = 'weight')}")
+            except:
+                print("Não foi possivel calcular o raio e o diâmetro! O grafo possui um caminho infinito.")
         case _:
             print(NON_OP)
     print("\n")
