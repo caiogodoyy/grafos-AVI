@@ -81,7 +81,7 @@ print("O que você quer fazer com seu grafo?")
 op = 1
 while (op):
     op = utils.getInput(
-        "int", "[0] Sair\n[1] Ver ordem e tamanho\n[2] Ver ligações de um vértice\n[3] Ver grau de um vértice\n[4] Checar adjacência entre vertices\n[5] Encontrar caminho mais curto\n>>\n>>")
+        "int", "[0] Sair\n[1] Ver ordem e tamanho\n[2] Ver ligações de um vértice\n[3] Ver grau de um vértice\n[4] Checar adjacência entre vertices\n[5] Encontrar caminho mais curto \n[6] Receber o raio e diâmetro do grafo\n>>")
 
     print("\n")
     match op:
@@ -127,6 +127,12 @@ while (op):
                 print(f"Valor do menor caminho: {Spath}")
             else:
                 print(f"Não possui um caminho entre {Fnode1} e {Fnode2}")
+        case 6:
+            try:
+                print(f"Esse é o raio do grafo: {nx.radius(G, weight = 'weight')}")
+                print(f"Esse é o diâmetro do grafo: {nx.diameter(G,  weight = 'weight')}")
+            except:
+                print("Não foi possivel calcular o raio e o diâmetro! O grafo possui um caminho infinito.")
         case _:
             print(NON_OP)
     print("\n")
